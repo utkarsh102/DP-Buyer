@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Divyansh Pratham — Premium residential society in Ahinsa Khand 2, Indirapuram. 207 apartments, 17+ amenities, opposite DPS, 2.26 km from metro. RERA: UPRERAPRJ15075.">
+  <meta property="og:title" content="Divyansh Pratham — Indirapuram's Finest Address">
+  <meta property="og:description" content="Premium 2, 3 & 4 BHK apartments in Ahinsa Khand 2, Indirapuram. 10+ years of thriving community.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23C0913A'/><text x='16' y='23' text-anchor='middle' font-family='serif' font-size='20' font-weight='bold' fill='%23FFFFFF'>D</text></svg>">
+  <title>Divyansh Pratham — Ahinsa Khand 2, Indirapuram</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Bricolage+Grotesque:opsz,wght@12..96,300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: '#F7F4EE', surface: '#FFFFFF',
+            accent: '#C0913A', 'accent-dark': '#9A7230',
+            text: '#1C1C1C', muted: '#6B665D',
+          },
+          fontFamily: {
+            display: ['Instrument Serif', 'serif'],
+            body: ['Bricolage Grotesque', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg: #F7F4EE; --surface: #FFFFFF;
+      --accent: #C0913A; --accent-rgb: 192, 145, 58;
+      --text: #1C1C1C; --muted: #6B665D;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Bricolage Grotesque', sans-serif; overflow-x: hidden; }
+    .font-display { font-family: 'Instrument Serif', serif; }
+
+    /* Noise overlay */
+    .noise { position: relative; }
+    .noise::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      border-radius: inherit; z-index: 1;
+    }
+    .noise > * { position: relative; z-index: 2; }
+
+    /* Animated underline */
+    .link-hover { position: relative; text-decoration: none; }
+    .link-hover::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 0; height: 1.5px; background: currentColor; transition: width 0.3s ease; }
+    .link-hover:hover::after { width: 100%; }
+
+    /* Buttons */
+    .btn-primary { background: var(--accent); color: #fff; transition: box-shadow 0.3s ease, transform 0.2s ease; }
+    .btn-primary:hover { box-shadow: 0 0 28px rgba(var(--accent-rgb), 0.45); transform: translateY(-2px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.4); }
+      70%  { box-shadow: 0 0 0 18px rgba(var(--accent-rgb), 0); }
+      100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0); }
+    }
+    .btn-pulse { animation: pulse-ring 2.2s infinite; }
+
+    /* Marquee */
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-track { display: flex; gap: 3rem; animation: marquee 30s linear infinite; width: fit-content; white-space: nowrap; }
+
+    /* Navbar */
+    nav { transition: background 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease; }
+    nav.scrolled { background: rgba(247,244,238,0.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(28,28,28,0.08); }
+
+    /* Hero word clip */
+    .hero-word { display: inline-block; overflow: hidden; line-height: 1.05; }
+    .hero-word-inner { display: block; }
+
+    /* Bento tilt */
+    .tilt-card { will-change: transform; }
+
+    /* GPU layers for scroll-animated elements — keeps parallax off main thread */
+    .hero-bg, .philosophy-bg { will-change: transform; transform: translateZ(0); }
+    nav { will-change: background, backdrop-filter; }
+
+    /* Spotlight effect on bento */
+    .spotlight-card { position: relative; overflow: hidden; }
+    .spotlight-card::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0;
+      background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(var(--accent-rgb), 0.08), transparent 70%);
+      transition: opacity 0.3s ease;
+    }
+    .spotlight-card:hover::before { opacity: 1; }
+    .spotlight-card > * { position: relative; z-index: 1; }
+
+    /* Divider */
+    .divider { height: 1px; background: rgba(28,28,28,0.08); }
+
+    /* Hero scrim */
+    .hero-scrim { background: linear-gradient(to right, rgba(247,244,238,0.97) 0%, rgba(247,244,238,0.72) 52%, rgba(247,244,238,0.05) 100%); }
+    @media (max-width: 768px) {
+      .hero-scrim { background: linear-gradient(to bottom, rgba(247,244,238,0.97) 45%, rgba(247,244,238,0.55) 100%); }
+    }
+
+    /* Alpine */
+    [x-cloak] { display: none !important; }
+
+    /* Grid bg for CTA */
+    .grid-bg {
+      background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+
+<body class="font-body">
+
+  <!-- PRELOADER -->
+  <div id="preloader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center gap-3" style="background:var(--bg)">
+    <span class="font-display text-7xl preloader-letter" style="color:var(--accent)">D</span>
+    <span class="preloader-sub text-xs tracking-[0.3em] uppercase" style="color:var(--muted)">Divyansh Pratham</span>
+  </div>
+
+  <!-- SCROLL PROGRESS -->
+  <div id="scroll-bar" class="fixed top-0 left-0 h-0.5 z-50" style="width:0%;background:var(--accent)"></div>
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 right-0 z-40 px-6 md:px-14 py-4 flex items-center justify-between">
+    <a href="#" class="font-display text-xl flex items-center gap-2.5" style="color:var(--text)">
+      <span class="w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold text-white" style="background:var(--accent)">D</span>
+      Divyansh Pratham
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium" style="color:var(--muted)">
+      <a href="#amenities" class="link-hover hover:text-text transition-colors">Amenities</a>
+      <a href="#community" class="link-hover hover:text-text transition-colors">Community</a>
+      <a href="#process" class="link-hover hover:text-text transition-colors">Location</a>
+      <a href="#faq" class="link-hover hover:text-text transition-colors">FAQ</a>
+    </div>
+    <a href="tel:+919867000000" class="btn-primary magnetic px-5 py-2.5 rounded-full text-sm font-semibold">
+      Schedule a Visit
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero relative min-h-screen flex items-center overflow-hidden">
+    <div class="hero-bg absolute inset-0" style="transform:scale(1.12)">
+      <img src="https://images.unsplash.com/photo-1512917774080-9991f1c7553c?w=1600&q=80&fit=crop"
+           alt="Divyansh Pratham — premium high-rise in Indirapuram"
+           class="w-full h-full object-cover" loading="eager">
+    </div>
+    <div class="hero-scrim absolute inset-0 z-10"></div>
+
+    <div class="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-14 pt-28 pb-20">
+      <!-- Badge -->
+      <div class="hero-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-sm font-medium mb-8"
+           style="border-color:rgba(192,145,58,0.35);background:rgba(192,145,58,0.1);color:var(--accent)">
+        <span class="w-1.5 h-1.5 rounded-full animate-pulse" style="background:var(--accent)"></span>
+        207 families call this home &nbsp;·&nbsp; Indirapuram's trusted address
+      </div>
+
+      <!-- Headline -->
+      <h1 class="hero-headline font-display leading-none mb-7" style="font-size:clamp(3rem,8.5vw,7rem);color:var(--text)">
+        <span class="hero-word"><span class="hero-word-inner">Home,</span></span><br>
+        <span class="hero-word"><span class="hero-word-inner italic" style="color:var(--accent)">above&nbsp;</span></span><span class="hero-word"><span class="hero-word-inner">everything.</span></span>
+      </h1>
+
+      <!-- Sub -->
+      <p class="hero-sub mb-10 leading-relaxed" style="font-size:clamp(1rem,1.4vw,1.15rem);max-width:44ch;color:var(--muted)">
+        For families in Indirapuram who want space, serenity, and 17+ amenities — all within 2.26 km of the metro, opposite DPS.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-wrap gap-4 items-center">
+        <a href="tel:+919867000000"
+           class="hero-cta btn-primary btn-pulse magnetic px-7 py-3.5 rounded-full font-semibold text-sm">
+          Schedule a Visit
+        </a>
+        <a href="https://wa.me/919867000000?text=Hi%2C%20I%20came%20across%20Divyansh%20Pratham%20and%20would%20like%20to%20schedule%20a%20visit.%20Is%20it%20possible%20this%20week%3F"
+           target="_blank"
+           class="hero-cta inline-flex items-center gap-2 px-7 py-3.5 rounded-full border font-semibold text-sm transition-all"
+           style="border-color:rgba(28,28,28,0.2);color:var(--text)"
+           onmouseenter="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'"
+           onmouseleave="this.style.borderColor='rgba(28,28,28,0.2)';this.style.color='var(--text)'">
+          WhatsApp Us
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+
+      <p class="mt-10 text-xs" style="color:var(--muted)">RERA: UPRERAPRJ15075 &nbsp;·&nbsp; By Divyansh Infracon Pvt. Ltd.</p>
+    </div>
+
+    <!-- Floating price card (desktop) -->
+    <div class="absolute bottom-10 right-10 z-20 hidden md:block rounded-2xl p-5 shadow-2xl"
+         style="background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border:1px solid rgba(28,28,28,0.07)">
+      <p class="text-xs mb-1" style="color:var(--muted)">Starting from</p>
+      <p class="font-display text-3xl" style="color:var(--text)">₹95 Lac</p>
+      <p class="text-xs mt-1" style="color:var(--muted)">2 BHK · Ready to move</p>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="py-5 overflow-hidden" style="border-top:1px solid rgba(28,28,28,0.08);border-bottom:1px solid rgba(28,28,28,0.08)">
+    <div class="marquee-track text-sm font-medium" style="color:var(--muted)">
+      <span>★ Opposite DPS Indirapuram</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>19 Floors · 207 Apartments</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>2.26 km to Metro</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>NH-24 Connectivity</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>RERA: UPRERAPRJ15075</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>10+ Years of Community</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>Earthquake Resistant RCC</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>Vastu Compliant</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>4.1★ on Justdial</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <!-- duplicate for seamless loop -->
+      <span>★ Opposite DPS Indirapuram</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>19 Floors · 207 Apartments</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>2.26 km to Metro</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>NH-24 Connectivity</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>RERA: UPRERAPRJ15075</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>10+ Years of Community</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>Earthquake Resistant RCC</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>Vastu Compliant</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+      <span>4.1★ on Justdial</span>
+      <span style="color:var(--accent)">&nbsp;·&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <section class="py-20 md:py-24 px-6 md:px-14 max-w-7xl mx-auto" data-reveal="up">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-0 md:divide-x divide-black/[0.07]">
+      <div class="text-center md:px-10">
+        <p class="font-display leading-none mb-2" style="font-size:clamp(3rem,6vw,5rem);color:var(--accent)">
+          <span class="counter" data-target="207" data-suffix="">0</span>
+        </p>
+        <p class="text-sm" style="color:var(--muted)">Apartments in care</p>
+      </div>
+      <div class="text-center md:px-10">
+        <p class="font-display leading-none mb-2" style="font-size:clamp(3rem,6vw,5rem);color:var(--text)">
+          <span class="counter" data-target="19" data-suffix="">0</span>
+        </p>
+        <p class="text-sm" style="color:var(--muted)">Floors above Indirapuram</p>
+      </div>
+      <div class="text-center md:px-10">
+        <p class="font-display leading-none mb-2" style="font-size:clamp(3rem,6vw,5rem);color:var(--accent)">
+          <span class="counter" data-target="17" data-suffix="+">0+</span>
+        </p>
+        <p class="text-sm" style="color:var(--muted)">World-class amenities</p>
+      </div>
+      <div class="text-center md:px-10">
+        <p class="font-display leading-none mb-2" style="font-size:clamp(3rem,6vw,5rem);color:var(--text)">
+          <span class="counter" data-target="10" data-suffix="+">0+</span>
+        </p>
+        <p class="text-sm" style="color:var(--muted)">Years of thriving community</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider mx-6 md:mx-14"></div>
+
+  <!-- AMENITIES BENTO -->
+  <section id="amenities" class="py-20 md:py-28 px-6 md:px-14 max-w-7xl mx-auto">
+    <div class="mb-14" data-reveal="up">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color:var(--accent)">What's inside</p>
+      <h2 class="font-display leading-tight" style="font-size:clamp(2.2rem,5vw,4rem);color:var(--text)">The Amenities.</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+      <!-- Large hero tile -->
+      <div class="md:col-span-2 md:row-span-2 tilt-card spotlight-card noise rounded-3xl p-8 relative overflow-hidden cursor-pointer"
+           style="background:#1a1208;min-height:380px" data-reveal="up">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1000&q=75&fit=crop"
+             alt="Swimming pool and wellness facilities"
+             loading="lazy" class="absolute inset-0 w-full h-full object-cover" style="opacity:0.38">
+        <div class="relative z-10 h-full flex flex-col justify-between" style="min-height:320px">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold w-fit"
+               style="background:rgba(192,145,58,0.22);color:#E2B865">
+            ✦ Flagship Amenity
+          </div>
+          <div>
+            <h3 class="font-display text-white leading-tight mb-3" style="font-size:clamp(1.8rem,4vw,3rem)">
+              Pool &amp;<br>Wellness Centre
+            </h3>
+            <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);max-width:34ch">
+              Swimming pool with a separate kids' area, fully equipped gymnasium, sauna, steam room, jacuzzi, and a dedicated yoga &amp; meditation hall — all within the campus.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security -->
+      <div class="tilt-card spotlight-card noise rounded-3xl p-7 flex flex-col justify-between cursor-pointer"
+           style="background:var(--surface);border:1px solid rgba(28,28,28,0.08)" data-reveal="up">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-6" style="background:rgba(192,145,58,0.1)">
+          <svg width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-display text-xl mb-2" style="color:var(--text)">3-Tier Security</h3>
+          <p class="text-sm leading-relaxed" style="color:var(--muted)">Full CCTV coverage, intercom in every unit, 24/7 guards, and gated entry. A society where safety is structural.</p>
+        </div>
+      </div>
+
+      <!-- Landscaped Grounds -->
+      <div class="tilt-card spotlight-card noise rounded-3xl p-7 flex flex-col justify-between cursor-pointer"
+           style="background:var(--surface);border:1px solid rgba(28,28,28,0.08)" data-reveal="up">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-6" style="background:rgba(192,145,58,0.1)">
+          <svg width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 2a10 10 0 000 20M2 12h10m5-7l3 7-3 7"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-display text-xl mb-2" style="color:var(--text)">Landscaped Grounds</h3>
+          <p class="text-sm leading-relaxed" style="color:var(--muted)">Manicured gardens, a dedicated jogging track, and a children's play area built into the campus design.</p>
+        </div>
+      </div>
+
+      <!-- Clubhouse -->
+      <div class="tilt-card spotlight-card noise rounded-3xl p-7 flex flex-col justify-between cursor-pointer"
+           style="background:rgba(192,145,58,0.06);border:1px solid rgba(192,145,58,0.14)" data-reveal="up">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-6" style="background:rgba(192,145,58,0.14)">
+          <svg width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 5v4m-3-2h6"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-display text-xl mb-2" style="color:var(--text)">The Clubhouse</h3>
+          <p class="text-sm leading-relaxed" style="color:var(--muted)">Library, billiards, indoor games, entertainment lounge. A place to gather, unwind, and belong.</p>
+        </div>
+      </div>
+
+      <!-- Connected Living -->
+      <div class="tilt-card spotlight-card noise rounded-3xl p-7 flex flex-col justify-between cursor-pointer"
+           style="background:var(--surface);border:1px solid rgba(28,28,28,0.08)" data-reveal="up">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-6" style="background:rgba(192,145,58,0.1)">
+          <svg width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M5 12.55a11 11 0 0114.08 0M1.42 9a16 16 0 0121.16 0M8.53 16.11a6 6 0 016.95 0M12 20h.01"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-display text-xl mb-2" style="color:var(--text)">Connected Living</h3>
+          <p class="text-sm leading-relaxed" style="color:var(--muted)">24/7 Wi-Fi, solar power, piped gas, power backup, and laundry — infrastructure that never announces itself because it never fails.</p>
+        </div>
+      </div>
+
+      <!-- Location (dark tile) -->
+      <div class="tilt-card spotlight-card noise rounded-3xl p-7 flex flex-col justify-between cursor-pointer"
+           style="background:var(--text);border:1px solid rgba(255,255,255,0.04)" data-reveal="up">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-6" style="background:rgba(192,145,58,0.18)">
+          <svg width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-display text-xl mb-2 text-white">Prime Location</h3>
+          <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.58)">
+            Opposite DPS. 2.26 km to metro. NH-24 in minutes. Yashoda &amp; Atlanta hospitals within 3 km.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="community" class="relative overflow-hidden py-28 md:py-44">
+    <div class="absolute inset-0">
+      <img src="https://images.unsplash.com/photo-1449844908441-8829cc28e0b2?w=1600&q=80&fit=crop"
+           alt="Thriving residential community" class="w-full h-full object-cover philosophy-bg" loading="lazy">
+      <div class="absolute inset-0" style="background:rgba(20,16,8,0.74)"></div>
+    </div>
+    <div class="relative z-10 max-w-4xl mx-auto px-6 md:px-14 text-center" data-reveal="up">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-8" style="color:rgba(192,145,58,0.75)">Why Pratham</p>
+      <blockquote class="font-display text-white leading-tight mb-8" style="font-size:clamp(2rem,5.5vw,4.5rem)">
+        Ten years of families.<br><em style="color:var(--accent)">One address.</em>
+      </blockquote>
+      <p class="leading-relaxed mb-10" style="color:rgba(255,255,255,0.62);font-size:1.1rem;max-width:44ch;margin-left:auto;margin-right:auto">
+        Divyansh Pratham isn't just a tower — it's a decade-old community of 207 families who chose the same standard. The same school across the road. The same metro stop. The same quiet confidence in how a home should feel.
+      </p>
+      <a href="tel:+919867000000" class="btn-primary magnetic px-8 py-3.5 rounded-full font-semibold text-sm inline-block">
+        Speak to a Resident →
+      </a>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" class="py-20 md:py-28 px-6 md:px-14 max-w-7xl mx-auto">
+    <div class="mb-16" data-reveal="up">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color:var(--accent)">How it works</p>
+      <h2 class="font-display leading-tight" style="font-size:clamp(2.2rem,5vw,4rem);color:var(--text)">Your path home.</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-10 md:gap-16">
+      <div data-reveal="up">
+        <p class="font-display leading-none mb-5" style="font-size:8rem;color:rgba(192,145,58,0.11);margin-top:-1.5rem">01</p>
+        <h3 class="font-display text-2xl mb-3" style="color:var(--text)">Schedule a Visit</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">Call or WhatsApp us. We'll arrange a personal walkthrough — the tower, the amenities, and an available unit — at a time that suits your family.</p>
+      </div>
+      <div data-reveal="up">
+        <p class="font-display leading-none mb-5" style="font-size:8rem;color:rgba(192,145,58,0.11);margin-top:-1.5rem">02</p>
+        <h3 class="font-display text-2xl mb-3" style="color:var(--text)">Choose Your Home</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">Pick from 2 BHK, 3 BHK, 4 BHK, or penthouse configurations — each Vastu compliant, with multiple balconies and premium engineered finishes.</p>
+      </div>
+      <div data-reveal="up">
+        <p class="font-display leading-none mb-5" style="font-size:8rem;color:rgba(192,145,58,0.11);margin-top:-1.5rem">03</p>
+        <h3 class="font-display text-2xl mb-3" style="color:var(--text)">Move In</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">The society is ready-to-move. No construction delays. No wait. Just your keys, your neighbours, and your new beginning in Indirapuram.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider mx-6 md:mx-14"></div>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20 md:py-28 px-6 md:px-14 max-w-7xl mx-auto">
+    <div class="mb-12" data-reveal="up">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color:var(--accent)">Resident voices</p>
+      <h2 class="font-display leading-tight" style="font-size:clamp(2.2rem,5vw,4rem);color:var(--text)">What families say.</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <div class="tilt-card spotlight-card noise rounded-2xl p-7 cursor-pointer"
+           style="background:var(--surface);border:1px solid rgba(28,28,28,0.08)" data-reveal="up">
+        <div class="mb-5 text-sm" style="color:var(--accent)">★★★★★</div>
+        <p class="text-sm leading-relaxed mb-7" style="color:var(--muted)">
+          "We shifted here in 2017 specifically because of DPS across the road. Seven years later, both kids have grown up here — and we've grown with the community. The security is what keeps me most at peace."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
+               style="background:rgba(192,145,58,0.12);color:var(--accent)">S</div>
+          <div>
+            <p class="text-sm font-semibold" style="color:var(--text)">Sunita Sharma</p>
+            <p class="text-xs" style="color:var(--muted)">Mother of two · 3 BHK, 14th Floor</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tilt-card spotlight-card noise rounded-2xl p-7 cursor-pointer"
+           style="background:var(--surface);border:1px solid rgba(28,28,28,0.08)" data-reveal="up">
+        <div class="mb-5 text-sm" style="color:var(--accent)">★★★★★</div>
+        <p class="text-sm leading-relaxed mb-7" style="color:var(--muted)">
+          "The gym and pool are actually maintained — which surprised me honestly. I've lived in three societies before this. Pratham is the only one where the amenities work exactly as promised. Five years in, no complaints."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
+               style="background:rgba(192,145,58,0.12);color:var(--accent)">R</div>
+          <div>
+            <p class="text-sm font-semibold" style="color:var(--text)">Rahul Verma</p>
+            <p class="text-xs" style="color:var(--muted)">Software engineer · 2 BHK, 9th Floor</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tilt-card spotlight-card noise rounded-2xl p-7 cursor-pointer"
+           style="background:rgba(192,145,58,0.05);border:1px solid rgba(192,145,58,0.12)" data-reveal="up">
+        <div class="mb-5 text-sm" style="color:var(--accent)">★★★★☆</div>
+        <p class="text-sm leading-relaxed mb-7" style="color:var(--muted)">
+          "Bought in 2016 at ₹72 Lac. Current value is above ₹1.1 Cr. But more than the returns — my parents live here now and feel safe every day. The metro connectivity makes the entire NCR accessible. Real ROI is peace of mind."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
+               style="background:rgba(192,145,58,0.12);color:var(--accent)">A</div>
+          <div>
+            <p class="text-sm font-semibold" style="color:var(--text)">Ankur Agarwal</p>
+            <p class="text-xs" style="color:var(--muted)">NRI investor · 2 BHK, 11th Floor</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-20 md:py-28 px-6 md:px-14" style="background:var(--surface)"
+           x-data="{ open: null }">
+    <div class="max-w-3xl mx-auto">
+      <div class="mb-14" data-reveal="up">
+        <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color:var(--accent)">Common questions</p>
+        <h2 class="font-display leading-tight" style="font-size:clamp(2.2rem,5vw,4rem);color:var(--text)">
+          Questions.<br>Answered.
+        </h2>
+      </div>
+
+      <div>
+        <!-- Q1 -->
+        <div style="border-bottom:1px solid rgba(28,28,28,0.08)">
+          <button @click="open = open===0 ? null : 0"
+                  class="w-full flex justify-between items-center py-5 text-left gap-6">
+            <span class="text-base font-medium" style="color:var(--text)">What unit sizes are available?</span>
+            <svg class="flex-shrink-0 w-5 h-5 transition-transform duration-300" :class="open===0?'rotate-180':''"
+                 fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div x-show="open===0" x-transition:enter="transition ease-out duration-200"
+               x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
+               class="pb-5 text-sm leading-relaxed" style="color:var(--muted)" x-cloak>
+            Divyansh Pratham offers 2 BHK (1,235 sq ft), 3 BHK (1,189–1,885 sq ft), and 4 BHK (2,245 sq ft) apartments, plus penthouse configurations. All units are Vastu compliant with multiple balconies, granite countertops, and engineered wood flooring in master bedrooms.
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div style="border-bottom:1px solid rgba(28,28,28,0.08)">
+          <button @click="open = open===1 ? null : 1"
+                  class="w-full flex justify-between items-center py-5 text-left gap-6">
+            <span class="text-base font-medium" style="color:var(--text)">How close is the nearest metro station?</span>
+            <svg class="flex-shrink-0 w-5 h-5 transition-transform duration-300" :class="open===1?'rotate-180':''"
+                 fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div x-show="open===1" x-transition:enter="transition ease-out duration-200"
+               x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
+               class="pb-5 text-sm leading-relaxed" style="color:var(--muted)" x-cloak>
+            The nearest metro is 2.26 km away. Noida Electronic City Metro Station is 3.6 km and Vaishali Metro Station is 4.3 km — both easily reachable by auto or cab. The society sits on a 150-feet main road connecting directly to Noida and Delhi via NH-24.
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div style="border-bottom:1px solid rgba(28,28,28,0.08)">
+          <button @click="open = open===2 ? null : 2"
+                  class="w-full flex justify-between items-center py-5 text-left gap-6">
+            <span class="text-base font-medium" style="color:var(--text)">Is the society well-maintained after 10+ years?</span>
+            <svg class="flex-shrink-0 w-5 h-5 transition-transform duration-300" :class="open===2?'rotate-180':''"
+                 fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div x-show="open===2" x-transition:enter="transition ease-out duration-200"
+               x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
+               class="pb-5 text-sm leading-relaxed" style="color:var(--muted)" x-cloak>
+            Resident reviews on Justdial and NoBroker consistently confirm that the pool, gym, and security systems remain functional and well-serviced. The society has an active RWA. It holds a 4.1/5 rating on Justdial and a 4.2/5 locality rating for Ahinsa Khand 2.
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div style="border-bottom:1px solid rgba(28,28,28,0.08)">
+          <button @click="open = open===3 ? null : 3"
+                  class="w-full flex justify-between items-center py-5 text-left gap-6">
+            <span class="text-base font-medium" style="color:var(--text)">What is the RERA registration number?</span>
+            <svg class="flex-shrink-0 w-5 h-5 transition-transform duration-300" :class="open===3?'rotate-180':''"
+                 fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div x-show="open===3" x-transition:enter="transition ease-out duration-200"
+               x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
+               class="pb-5 text-sm leading-relaxed" style="color:var(--muted)" x-cloak>
+            RERA Registration: <strong style="color:var(--text)">UPRERAPRJ15075</strong> (Uttar Pradesh RERA). Verify at rera.up.gov.in. Developed by Divyansh Infracon Pvt. Ltd. — a builder with 14+ lakh sq ft of delivered residential space in NCR.
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div>
+          <button @click="open = open===4 ? null : 4"
+                  class="w-full flex justify-between items-center py-5 text-left gap-6">
+            <span class="text-base font-medium" style="color:var(--text)">Can I visit the flat before deciding?</span>
+            <svg class="flex-shrink-0 w-5 h-5 transition-transform duration-300" :class="open===4?'rotate-180':''"
+                 fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div x-show="open===4" x-transition:enter="transition ease-out duration-200"
+               x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
+               class="pb-5 text-sm leading-relaxed" style="color:var(--muted)" x-cloak>
+            Absolutely — and we recommend it. Call or WhatsApp to schedule a personal walkthrough. We'll show you the available unit, the amenities floor, and introduce you to the neighbourhood. No pressure, no pitch. Just an honest look at what will be your home.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="py-24 md:py-36 px-6 md:px-14 relative overflow-hidden noise grid-bg" style="background:#0F0C06">
+    <div class="absolute inset-0 opacity-[0.025]"
+         style="background-image:linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px);background-size:48px 48px"></div>
+    <div class="absolute top-1/2 left-1/3 -translate-y-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none"
+         style="background:var(--accent);opacity:0.08"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center" data-reveal="up">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-6" style="color:rgba(192,145,58,0.65)">Your next chapter</p>
+      <h2 class="font-display text-white leading-tight mb-6" style="font-size:clamp(2.4rem,6vw,5.5rem)">
+        Ahinsa Khand 2.<br>
+        <em style="color:var(--accent)">Ready when you are.</em>
+      </h2>
+      <p class="leading-relaxed mb-10" style="color:rgba(255,255,255,0.55);max-width:38ch;margin-left:auto;margin-right:auto;font-size:1.05rem">
+        207 homes. 10 years. One address that has never needed to explain itself. Come see why.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="tel:+919867000000"
+           class="btn-primary btn-pulse magnetic px-8 py-4 rounded-full font-semibold text-sm">
+          Schedule a Visit
+        </a>
+        <a href="https://wa.me/919867000000?text=Hi%2C%20I%27m%20interested%20in%20Divyansh%20Pratham.%20Can%20we%20talk%3F"
+           target="_blank"
+           class="inline-flex items-center gap-2 px-8 py-4 rounded-full border font-semibold text-sm transition-all"
+           style="border-color:rgba(255,255,255,0.18);color:rgba(255,255,255,0.75)"
+           onmouseenter="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'"
+           onmouseleave="this.style.borderColor='rgba(255,255,255,0.18)';this.style.color='rgba(255,255,255,0.75)'">
+          <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor">
+            <path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.47 2.027 7.77L0 32l8.468-2.007A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.21 22.375c-.345.97-2.007 1.856-2.76 1.945-.698.083-1.576.118-2.541-.16-.587-.172-1.34-.402-2.295-.79-4.036-1.7-6.671-5.77-6.873-6.037-.196-.267-1.6-2.13-1.6-4.063 0-1.934 1.013-2.883 1.373-3.276.36-.393.785-.491 1.047-.491.261 0 .523.002.752.014.241.012.565-.091.883.675.329.8 1.12 2.732 1.218 2.932.099.2.165.432.033.695-.13.262-.196.424-.393.653-.196.229-.412.511-.588.686-.196.196-.4.408-.172.8.229.393.916 1.577 1.968 2.553 1.353 1.24 2.494 1.623 2.887 1.806.393.184.621.153.85-.092.229-.245.98-1.144 1.24-1.537.262-.393.524-.327.884-.196.36.13 2.286 1.08 2.679 1.275.393.196.654.294.75.458.1.163.1.95-.245 1.919z"/>
+          </svg>
+          WhatsApp Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="pt-16 pb-8 px-6 md:px-14" style="background:#08060200;background-color:#0A0806;color:rgba(255,255,255,0.55)">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-10 pb-12" style="border-bottom:1px solid rgba(255,255,255,0.06)">
+
+        <div>
+          <a href="#" class="font-display text-xl text-white flex items-center gap-2.5 mb-4">
+            <span class="w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold text-white" style="background:var(--accent)">D</span>
+            Divyansh Pratham
+          </a>
+          <p class="text-sm leading-relaxed mb-4" style="max-width:22ch">Listening to families, since 2014.</p>
+          <p class="text-xs" style="color:rgba(255,255,255,0.28)">RERA: UPRERAPRJ15075</p>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold tracking-widest uppercase mb-5" style="color:rgba(255,255,255,0.28)">Configurations</p>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="#" class="link-hover transition-colors hover:text-white">2 BHK — 1,235 sq ft</a></li>
+            <li><a href="#" class="link-hover transition-colors hover:text-white">3 BHK — 1,189–1,885 sq ft</a></li>
+            <li><a href="#" class="link-hover transition-colors hover:text-white">4 BHK — 2,245 sq ft</a></li>
+            <li><a href="#" class="link-hover transition-colors hover:text-white">Penthouse — On request</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold tracking-widest uppercase mb-5" style="color:rgba(255,255,255,0.28)">Amenities</p>
+          <ul class="space-y-2.5 text-sm">
+            <li>Swimming Pool &amp; Kids Pool</li>
+            <li>Gymnasium + Sauna + Jacuzzi</li>
+            <li>Yoga &amp; Meditation Hall</li>
+            <li>Clubhouse &amp; Library</li>
+            <li>24/7 CCTV &amp; Security</li>
+            <li>Solar Power &amp; Piped Gas</li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold tracking-widest uppercase mb-5" style="color:rgba(255,255,255,0.28)">Contact</p>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="tel:+919867000000" class="link-hover transition-colors hover:text-white">+91 98670 00000</a></li>
+            <li>
+              <a href="https://wa.me/919867000000" target="_blank" class="link-hover transition-colors hover:text-white">WhatsApp</a>
+            </li>
+            <li class="text-xs pt-3 leading-relaxed" style="color:rgba(255,255,255,0.35)">
+              CISF Kanawani Road,<br>
+              Ahinsa Khand 2,<br>
+              Indirapuram, Ghaziabad — 201010
+            </li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-3 text-xs" style="color:rgba(255,255,255,0.28)">
+        <p>© 2025 Divyansh Pratham · Divyansh Infracon Pvt. Ltd. All rights reserved.</p>
+        <p>Demo by <span style="color:var(--accent)">Your Agency</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOATING BUTTON -->
+  <a id="whatsapp-btn"
+     href="https://wa.me/919867000000?text=Hi%2C%20I%20came%20across%20Divyansh%20Pratham%20and%20would%20like%20to%20schedule%20a%20visit.%20Is%20it%20possible%20this%20week%3F"
+     target="_blank" rel="noopener" aria-label="Chat on WhatsApp"
+     class="fixed bottom-24 md:bottom-6 right-5 md:right-6 z-50 flex items-center gap-2"
+     style="transform:scale(0);opacity:0">
+    <span class="hidden md:flex items-center gap-2 text-white px-4 py-2.5 rounded-full shadow-2xl text-sm font-semibold" style="background:#25D366">
+      <svg width="18" height="18" viewBox="0 0 32 32" fill="white"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.47 2.027 7.77L0 32l8.468-2.007A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.21 22.375c-.345.97-2.007 1.856-2.76 1.945-.698.083-1.576.118-2.541-.16-.587-.172-1.34-.402-2.295-.79-4.036-1.7-6.671-5.77-6.873-6.037-.196-.267-1.6-2.13-1.6-4.063 0-1.934 1.013-2.883 1.373-3.276.36-.393.785-.491 1.047-.491.261 0 .523.002.752.014.241.012.565-.091.883.675.329.8 1.12 2.732 1.218 2.932.099.2.165.432.033.695-.13.262-.196.424-.393.653-.196.229-.412.511-.588.686-.196.196-.4.408-.172.8.229.393.916 1.577 1.968 2.553 1.353 1.24 2.494 1.623 2.887 1.806.393.184.621.153.85-.092.229-.245.98-1.144 1.24-1.537.262-.393.524-.327.884-.196.36.13 2.286 1.08 2.679 1.275.393.196.654.294.75.458.1.163.1.95-.245 1.919z"/></svg>
+      Chat on WhatsApp
+    </span>
+    <span class="md:hidden w-14 h-14 rounded-full flex items-center justify-center shadow-2xl" style="background:#25D366">
+      <svg width="26" height="26" viewBox="0 0 32 32" fill="white"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.47 2.027 7.77L0 32l8.468-2.007A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.21 22.375c-.345.97-2.007 1.856-2.76 1.945-.698.083-1.576.118-2.541-.16-.587-.172-1.34-.402-2.295-.79-4.036-1.7-6.671-5.77-6.873-6.037-.196-.267-1.6-2.13-1.6-4.063 0-1.934 1.013-2.883 1.373-3.276.36-.393.785-.491 1.047-.491.261 0 .523.002.752.014.241.012.565-.091.883.675.329.8 1.12 2.732 1.218 2.932.099.2.165.432.033.695-.13.262-.196.424-.393.653-.196.229-.412.511-.588.686-.196.196-.4.408-.172.8.229.393.916 1.577 1.968 2.553 1.353 1.24 2.494 1.623 2.887 1.806.393.184.621.153.85-.092.229-.245.98-1.144 1.24-1.537.262-.393.524-.327.884-.196.36.13 2.286 1.08 2.679 1.275.393.196.654.294.75.458.1.163.1.95-.245 1.919z"/></svg>
+    </span>
+  </a>
+
+  <!-- MOBILE STICKY CTA -->
+  <div class="fixed bottom-0 left-0 right-0 z-40 md:hidden flex items-center gap-3 p-4"
+       style="background:rgba(247,244,238,0.96);backdrop-filter:blur(12px);border-top:1px solid rgba(28,28,28,0.08)">
+    <div class="flex-1 min-w-0">
+      <p class="text-xs truncate" style="color:var(--muted)">Indirapuram · Ready to Move</p>
+      <p class="text-sm font-semibold truncate" style="color:var(--text)">2 BHK from ₹95 Lac</p>
+    </div>
+    <a href="tel:+919867000000"
+       class="flex-shrink-0 btn-primary px-5 py-2.5 rounded-full text-sm font-semibold">
+      Call Now
+    </a>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Lenis removed — native scroll is smoother on Windows with a mouse wheel -->
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ── Initial states (before load fires) ──────────────────────────────────
+    gsap.set(".preloader-letter", { opacity: 0, scale: 0.4 });
+    gsap.set(".preloader-sub",    { opacity: 0, y: 8 });
+    gsap.set(".hero-word-inner",  { y: "110%" });
+    gsap.set([".hero-badge", ".hero-sub", ".hero-cta"], { opacity: 0, y: 20 });
+
+    window.addEventListener("load", () => {
+
+      // ── Preloader → Hero ───────────────────────────────────────────────────
+      const tl = gsap.timeline({ onComplete: initHero });
+      tl.to(".preloader-letter", { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(2)" })
+        .to(".preloader-sub",    { opacity: 1, y: 0,  duration: 0.4, ease: "power2.out" }, "-=0.2")
+        .to("#preloader",        { opacity: 0, y: "-100%", duration: 0.65, ease: "power4.in", delay: 0.5 })
+        .add(() => { document.getElementById("preloader").remove(); });
+
+      function initHero() {
+        gsap.to(".hero-word-inner", { y: "0%",  opacity: 1, duration: 0.9, stagger: 0.1,  ease: "power4.out" });
+        gsap.to(".hero-badge",      { opacity: 1, y: 0, duration: 0.6, delay: 0.55, ease: "power2.out" });
+        gsap.to(".hero-sub",        { opacity: 1, y: 0, duration: 0.8, delay: 0.72, ease: "power2.out" });
+        gsap.to(".hero-cta",        { opacity: 1, y: 0, duration: 0.7, delay: 0.88, stagger: 0.12, ease: "power2.out" });
+      }
+
+      // ── Section reveals ────────────────────────────────────────────────────
+      gsap.utils.toArray("[data-reveal]").forEach(el => {
+        gsap.from(el, {
+          scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none reverse" },
+          y: 50, opacity: 0, duration: 0.75, ease: "power2.out"
+        });
+      });
+
+      // ── Hero parallax ──────────────────────────────────────────────────────
+      gsap.to(".hero-bg", {
+        yPercent: 20, ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1 }
+      });
+
+      // ── Philosophy parallax ────────────────────────────────────────────────
+      gsap.to(".philosophy-bg", {
+        yPercent: 16, ease: "none",
+        scrollTrigger: { trigger: "#community", start: "top bottom", end: "bottom top", scrub: 1 }
+      });
+
+      // ── Counters ───────────────────────────────────────────────────────────
+      const counterObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          const el     = e.target;
+          const target = +el.dataset.target;
+          const suffix = el.dataset.suffix || "";
+          let cur      = 0;
+          const step   = Math.max(1, Math.ceil(target / 60));
+          const t = setInterval(() => {
+            cur = Math.min(cur + step, target);
+            el.textContent = cur + suffix;
+            if (cur >= target) clearInterval(t);
+          }, 24);
+          counterObs.unobserve(el);
+        });
+      }, { threshold: 0.5 });
+      document.querySelectorAll(".counter").forEach(el => counterObs.observe(el));
+
+      // ── Bento 3D tilt ──────────────────────────────────────────────────────
+      document.querySelectorAll(".tilt-card").forEach(card => {
+        card.addEventListener("mousemove", e => {
+          const r = card.getBoundingClientRect();
+          const x = ((e.clientX - r.left) / r.width  - 0.5) * 10;
+          const y = ((e.clientY - r.top)  / r.height - 0.5) * 10;
+          card.style.transform  = `perspective(900px) rotateX(${-y}deg) rotateY(${x}deg) translateY(-5px) scale(1.015)`;
+          card.style.transition = "transform 0.05s ease";
+        });
+        card.addEventListener("mouseleave", () => {
+          card.style.transform  = "";
+          card.style.transition = "transform 0.45s cubic-bezier(0.23,1,0.32,1)";
+        });
+      });
+
+      // ── Spotlight cursor follow on bento ───────────────────────────────────
+      document.querySelectorAll(".spotlight-card").forEach(card => {
+        card.addEventListener("mousemove", e => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+          card.style.setProperty("--my", (e.clientY - r.top)  + "px");
+        });
+      });
+
+      // ── Navbar + scroll progress bar ───────────────────────────────────────
+      const nav       = document.querySelector("nav");
+      const scrollBar = document.getElementById("scroll-bar");
+      window.addEventListener("scroll", () => {
+        nav.classList.toggle("scrolled", window.scrollY > 40);
+        const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        scrollBar.style.width = pct + "%";
+      }, { passive: true });
+
+      // ── Magnetic CTAs ──────────────────────────────────────────────────────
+      document.querySelectorAll(".magnetic").forEach(btn => {
+        btn.addEventListener("mousemove", e => {
+          const r = btn.getBoundingClientRect();
+          gsap.to(btn, {
+            x: (e.clientX - r.left - r.width  / 2) * 0.3,
+            y: (e.clientY - r.top  - r.height / 2) * 0.3,
+            duration: 0.3, ease: "power2.out"
+          });
+        });
+        btn.addEventListener("mouseleave", () => {
+          gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1,0.5)" });
+        });
+      });
+
+      // ── WhatsApp entrance ──────────────────────────────────────────────────
+      gsap.to("#whatsapp-btn", {
+        scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2.5)", delay: 2.2
+      });
+
+    });
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Residence",
+    "name": "Divyansh Pratham",
+    "description": "Premium residential society in Ahinsa Khand 2, Indirapuram. 207 apartments, 17+ amenities. RERA: UPRERAPRJ15075.",
+    "telephone": "+919867000000",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "CISF Kanawani Road, Ahinsa Khand 2",
+      "addressLocality": "Indirapuram",
+      "addressRegion": "Uttar Pradesh",
+      "postalCode": "201010",
+      "addressCountry": "IN"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.1",
+      "reviewCount": "8"
+    }
+  }
+  </script>
+
+</body>
+</html>
